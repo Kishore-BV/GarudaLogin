@@ -37,8 +37,8 @@ export const Login: React.FC<LoginProps> = ({ onLogin }) => {
           <div className="mx-auto w-24 h-24 mb-4">
             <img src="/logo.png" alt="GAL Logo" className="w-full h-full object-contain" />
           </div>
-          <h2 className="text-3xl font-extrabold text-slate-800">Welcome to GAL</h2>
-          <p className="text-slate-500">Sign in to track your attendance</p>
+          <h2 className="text-3xl font-extrabold text-white">Welcome to GAL</h2>
+          <p className="text-white">Sign in to track your attendance</p>
         </div>
 
         <ClayCard className="mt-8">
@@ -94,8 +94,8 @@ export const Login: React.FC<LoginProps> = ({ onLogin }) => {
           </div>
         </ClayCard>
 
-        <p className="text-slate-400 text-xs mt-8">
-          GAL Secure Authentication via n8n Node
+        <p className="text-white text-xs mt-8">
+          Have A Nice Day!!
         </p>
       </div>
     </div>
