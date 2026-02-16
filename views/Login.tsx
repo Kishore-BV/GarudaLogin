@@ -34,12 +34,10 @@ export const Login: React.FC<LoginProps> = ({ onLogin }) => {
 
       <div className="w-full max-w-md space-y-8 text-center relative z-10">
         <div className="space-y-2">
-          <div className="mx-auto w-16 h-16 bg-blue-500 rounded-2xl flex items-center justify-center text-white shadow-xl mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
+          <div className="mx-auto w-24 h-24 mb-4">
+            <img src="/logo.png" alt="GAL Logo" className="w-full h-full object-contain" />
           </div>
-          <h2 className="text-3xl font-extrabold text-slate-800">Welcome Back</h2>
+          <h2 className="text-3xl font-extrabold text-slate-800">Welcome to GAL</h2>
           <p className="text-slate-500">Sign in to track your attendance</p>
         </div>
 
@@ -97,7 +95,7 @@ export const Login: React.FC<LoginProps> = ({ onLogin }) => {
         </ClayCard>
 
         <p className="text-slate-400 text-xs mt-8">
-          HAVE A NICE DAY 😀
+          GAL Secure Authentication via n8n Node
         </p>
       </div>
     </div>

@@ -101,12 +101,10 @@ const App: React.FC = () => {
     <div className="min-h-screen pb-12">
       <nav className="p-4 md:p-6 flex justify-between items-center max-w-6xl mx-auto">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-blue-500 rounded-xl flex items-center justify-center text-white shadow-lg">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
+          <div className="w-10 h-10 flex items-center justify-center">
+            <img src="/logo.png" alt="GAL Logo" className="w-full h-full object-contain" />
           </div>
-          <h1 className="text-2xl font-bold tracking-tight text-slate-800">BlueMark</h1>
+          <h1 className="text-2xl font-bold tracking-tight text-slate-800">GAL Login</h1>
         </div>
         <button
           onClick={handleLogout}
