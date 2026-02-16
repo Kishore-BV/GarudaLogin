@@ -1,0 +1,7 @@
+{
+  "name": "BlueMark Attendance",
+  "description": "A modern, claymorphism-styled employee attendance system with GPS tracking and AI-powered insights.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
