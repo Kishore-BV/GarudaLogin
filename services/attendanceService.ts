@@ -22,8 +22,8 @@ export async function sendAttendanceToWebhook(
 ): Promise<void> {
     // Use different endpoints for check-in and check-out
     const webhookUrl = type === 'checkout'
-        ? 'https://n8n.kishoren8n.in/webhook-test/ClockOut'
-        : 'https://n8n.kishoren8n.in/webhook-test/UserData';
+        ? 'https://n8n.kishoren8n.in/webhook/ClockOut'
+        : 'https://n8n.kishoren8n.in/webhook/UserData';
 
     console.log(`🚀 Sending ${type} data to webhook:`, webhookUrl, data);
 
