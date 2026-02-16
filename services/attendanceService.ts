@@ -10,6 +10,55 @@ interface AttendanceData {
     Date: string;
 }
 
+interface AttendanceStatus {
+    isClockedIn: boolean;
+    clockInTime: string | null;
+    date: string | null;
+}
+
+/**
+ * Checks if a user is currently clocked in by querying the n8n backend.
+ * This prevents duplicate clock-ins and shows the correct button on page load.
+ * @param email - User's email address
+ * @param date - Date to check (YYYY-MM-DD format)
+ */
+export async function checkAttendanceStatus(
+    email: string,
+    date: string
+): Promise<AttendanceStatus> {
+    console.log(`🔍 Checking attendance status for ${email} on ${date}`);
+
+    try {
+        const response = await fetch('https://n8n.kishoren8n.in/webhook/AttendanceStatus', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ Email: email, Date: date }),
+        });
+
+        console.log('📡 Status check response:', response.status);
+
+        if (!response.ok) {
+            console.warn('⚠️ Status check returned non-OK status:', response.status);
+            return { isClockedIn: false, clockInTime: null, date: null };
+        }
+
+        const data = await response.json();
+        console.log('✅ Status check data:', data);
+
+        return {
+            isClockedIn: data.isClockedIn || false,
+            clockInTime: data.clockInTime || null,
+            date: data.date || null,
+        };
+    } catch (error) {
+        console.error('❌ Failed to check attendance status:', error);
+        // Return false on error so user can still clock in
+        return { isClockedIn: false, clockInTime: null, date: null };
+    }
+}
+
 /**
  * Sends attendance data to the n8n webhook for database storage.
  * This is a fire-and-forget operation - errors are logged but don't block the UI.

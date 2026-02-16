@@ -5,7 +5,7 @@ import { ClayCard } from '../components/ClayCard';
 import { ClayButton } from '../components/ClayButton';
 import { calculateDistance, formatTime, formatDate } from '../utils';
 import { getAttendanceInsights } from '../services/geminiService';
-import { sendAttendanceToWebhook } from '../services/attendanceService';
+import { sendAttendanceToWebhook, checkAttendanceStatus } from '../services/attendanceService';
 
 interface EmployeeDashboardProps {
   user: User;
@@ -35,6 +35,41 @@ export const EmployeeDashboard: React.FC<EmployeeDashboardProps> = ({
       getAttendanceInsights(logs.filter(l => l.userId === user.id), user.name).then(setInsight);
     }
   }, [logs, user]);
+
+  // Check attendance status on mount to restore state after refresh
+  useEffect(() => {
+    const checkStatus = async () => {
+      const today = new Date().toISOString().split('T')[0];
+      console.log('🔄 Checking attendance status on mount...');
+
+      const status = await checkAttendanceStatus(user.email, today);
+
+      if (status.isClockedIn && status.clockInTime) {
+        console.log('✅ User is already clocked in at:', status.clockInTime);
+
+        // Check if we already have this log in state
+        const existingLog = logs.find(l => l.userId === user.id && l.date.startsWith(today));
+
+        if (!existingLog) {
+          // Create a temporary log to show the user is clocked in
+          const tempLog: AttendanceLog = {
+            id: `temp-${Date.now()}`,
+            userId: user.id,
+            checkInTime: status.clockInTime,
+            checkOutTime: null,
+            date: today,
+            status: 'present' as AttendanceStatus,
+          };
+          onAddLog(tempLog);
+          console.log('📝 Created temporary log from backend status');
+        }
+      } else {
+        console.log('ℹ️ User is not currently clocked in');
+      }
+    };
+
+    checkStatus();
+  }, [user.email]); // Only run on mount or when user changes
 
   const handleAction = () => {
     setLoading(true);
